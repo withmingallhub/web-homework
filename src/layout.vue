@@ -100,7 +100,7 @@ export default {
     font-size: 2em;
     color:white;
 }
- a{
+a{
     display: inline-block;
     width: 100%;
     height:100%;

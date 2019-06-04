@@ -14,6 +14,7 @@ import shopcar from '@/components/usercomponents/shopCar/shopCar'
 import collectible from '@/components/usercomponents/collectible/collectible'
 import connectService from '@/components/usercomponents/connectService/connectService'
 import myFoot from '@/components/usercomponents/myFoot/myFoot'
+import moreMovies from '@/components/usercomponents/moreMovies/moreMovies'
 import set from '@/components/usercomponents/set/set'
 import grade from '@/components/usercomponents/grade/grade'
 import buytickets from '@/components/usercomponents/buytickets/buytickets'
@@ -111,6 +112,11 @@ export default[
             {
                 path:'/buytickets',
                 component:buytickets
+            },
+            {
+                path:'/moreMovies',
+                component:moreMovies,
+                name:'moreMovies'
             }
         ]
     }

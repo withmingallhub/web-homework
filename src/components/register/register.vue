@@ -110,6 +110,7 @@ export default {
           let email = this.formInline.email
           let username = this.formInline.user
           let password = this.formInline.password
+          axios.defaults.withCredentials = true
           axios.post('http://47.94.92.88:8080/TTMS/checkMail',{
             username:username,
             password:password,
@@ -118,7 +119,11 @@ export default {
             if(res.data.status == 500){
               this.$Message.error('获取失败！')
             }
-            else if(res.data.status == 200) this.$Message.success('发送成功！')
+            else if(res.data.status == 200){
+              let code = res.data.code
+              localStorage.setItem('Code',code)
+              this.$Message.success('发送成功！')
+            }
           })
         }else{
           this.$Message.error('两次密码不相等！')
@@ -133,12 +138,17 @@ export default {
                 this.$Message.error('两次密码不相等');
             }
             else{
-              axios.post('', {
-                code:this.formInline.code,
-              })
-              .then(function (response) {
-                console.log(response);
-              })
+              let Code = localStorage.getItem('Code')
+              if(Code == '验证码：' + this.formInline.code){
+                axios.post('http://47.94.92.88:8080/TTMS/register', {
+                  username:this.formInline.user,
+                  password:this.formInline.password,
+                  mailbox:this.formInline.email
+                })
+                .then(function (response) {
+                  console.log(response);
+                })
+              }else this.$Message.error('验证码错误！')
             }
         })
     }
