@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="margin-bottom:20px;">
         <div class="top">
             <h1>{{ moreMoviesName }}</h1>
         </div>

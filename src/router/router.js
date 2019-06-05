@@ -2,11 +2,12 @@
 import layout from '@/layout'
 import login from '@/components/logintem/login'
 import register from '@/components/register/register'
-import lookfornum from '@/components/manage/lookfornum/lookfornum'
+import addSession from '@/components/manage/addSession/addSession'
 import main from '@/components/manage/main/main'
 import addmovie from '@/components/manage/addmovie/addmovie'
-import manageIfo from '@/components/manage/mangeIfo/manageIfo'
+import deletMovies from '@/components/manage/deletMovies/deletMovies'
 import selltickets from '@/components/manage/selltickets/selltickets'
+import ticketsFind from '@/components/manage/ticketsFind/ticketsFind'
 import user from '@/user'
 import mainchoise from '@/components/usercomponents/userMain/userMainchoise'
 import userInfo from '@/components/usercomponents/userInfo/userInfo'
@@ -35,8 +36,8 @@ export default[
                 }
             },
             {
-                path:'/manage/lookfornum',
-                component:lookfornum,
+                path:'/manage/addSession',
+                component:addSession,
                 meta:{
                     name:'1-0-1',
                 }
@@ -49,10 +50,17 @@ export default[
                 }
             },
             {
-                path:'/manage/manageIfo',
-                component:manageIfo,
+                path:'/manage/deletMovies',
+                component:deletMovies,
                 meta:{
                     name:'1-0-3'
+                }
+            },
+            {
+                path:'/manage/ticketsFind',
+                component:ticketsFind,
+                meta:{
+                    name:'1-0-4'
                 }
             },
             // 
@@ -60,7 +68,7 @@ export default[
                 path:'/manage/selltickets',
                 component:selltickets,
                 meta:{
-                    name:'1-0-4'
+                    name:'1-0-5'
                 }
             },
         ]

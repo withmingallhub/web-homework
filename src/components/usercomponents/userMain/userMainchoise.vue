@@ -205,7 +205,7 @@ li{
                 </div>
             </div>
         </div>
-        <!-- 渲染热门，新上线，高分的电影 -->
+        <!-- 渲染新上线，高分的电影 -->
         <div class="ranking">
             <!-- 高分电影榜 -->
             <div class="heighGrade">

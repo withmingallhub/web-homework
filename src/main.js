@@ -13,6 +13,13 @@ Vue.use(iView);
 new Vue({
   el: '#app',
   router,
+  scrollBehavior(to,from,saveTop){
+    if(saveTop){
+      return saveTop;
+    }else{
+      return {x:0,y:0}
+    }
+  },
   components: { App },
   template: '<App/>'
 })

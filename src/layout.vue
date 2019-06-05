@@ -25,25 +25,29 @@
             </Header>
             <Layout>
                 <Sider hide-trigger :style="{background: '#fff'}">
-                    <Menu active-name="1">
-                        <MenuGroup title="影票管理">
-                            <MenuItem name="1">
-                                <Icon type="md-document" />
-                                搜索影票
+                    <Menu active-name="1" theme="light">
+                        <MenuGroup title="电影管理">
+                            <MenuItem name="1" to="/manage/addmovie">
+                                <Icon type="md-add" />
+                                添加新电影
                             </MenuItem>
-                            <MenuItem name="2">
-                                <Icon type="md-chatbubbles" />
-                                影票信息
+                            <MenuItem name="2" to="/manage/addSession">
+                                <Icon type="ios-add-circle-outline" />
+                                添加电影场次
+                            </MenuItem>
+                            <MenuItem name="5" to="/manage/deletMovies">
+                                <Icon type="md-close" />
+                                删除电影/场次
                             </MenuItem>
                         </MenuGroup>
-                        <MenuGroup title="统计分析">
-                            <MenuItem name="3">
-                                <Icon type="md-heart" />
-                                用户留存
+                        <MenuGroup title="影票管理">
+                            <MenuItem name="3" to="/manage/ticketsFind">
+                                <Icon type="md-search" />
+                                影票搜索
                             </MenuItem>
-                            <MenuItem name="4">
-                                <Icon type="md-leaf" />
-                                流失用户
+                            <MenuItem name="4" to="/manage/selltickets">
+                                <Icon type="ios-paper-outline" />
+                                售票信息
                             </MenuItem>
                         </MenuGroup>
                     </Menu>

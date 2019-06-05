@@ -3,7 +3,7 @@
         <div style="height:60px;width:100%;">
             <usertop />
         </div>
-        <div style="width:84%;position:relative;left:8%;min-height:800px;">
+        <div style="width:84%;position:relative;left:8%;min-height:400px;">
             <router-view />
         </div>
         <div class="bottomFoot">

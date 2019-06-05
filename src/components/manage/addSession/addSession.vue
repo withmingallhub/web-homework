@@ -1,6 +1,6 @@
 <template>
     <div>
-        场务员
+        添加场次
     </div>
 </template>
 

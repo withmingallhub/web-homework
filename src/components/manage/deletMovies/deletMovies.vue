@@ -1,6 +1,6 @@
 <template>
     <div>
-        管理人员个人中心
+        删除电影/场次
     </div>
 </template>
 
