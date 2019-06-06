@@ -5,6 +5,8 @@ import register from '@/components/register/register'
 import addSession from '@/components/manage/addSession/addSession'
 import main from '@/components/manage/main/main'
 import addmovie from '@/components/manage/addmovie/addmovie'
+import changeMovie from '@/components/manage/changeMovie/changeMovie'
+import onlineMovie from '@/components/manage/onlineMovie/onlineMovie'
 import deletMovies from '@/components/manage/deletMovies/deletMovies'
 import selltickets from '@/components/manage/selltickets/selltickets'
 import ticketsFind from '@/components/manage/ticketsFind/ticketsFind'
@@ -50,17 +52,31 @@ export default[
                 }
             },
             {
+                path:'/manage/changeMovie',
+                component:changeMovie,
+                meta:{
+                    name:'1-0-3',   
+                }
+            },
+            {
+                path:'/manage/onlineMovie',
+                component:onlineMovie,
+                meta:{
+                    name:'1-0-4',   
+                }
+            },
+            {
                 path:'/manage/deletMovies',
                 component:deletMovies,
                 meta:{
-                    name:'1-0-3'
+                    name:'1-0-5'
                 }
             },
             {
                 path:'/manage/ticketsFind',
                 component:ticketsFind,
                 meta:{
-                    name:'1-0-4'
+                    name:'1-0-6'
                 }
             },
             // 
@@ -68,7 +84,7 @@ export default[
                 path:'/manage/selltickets',
                 component:selltickets,
                 meta:{
-                    name:'1-0-5'
+                    name:'1-0-7'
                 }
             },
         ]

@@ -31,7 +31,15 @@
                                 <Icon type="md-add" />
                                 添加新电影
                             </MenuItem>
-                            <MenuItem name="2" to="/manage/addSession">
+                            <MenuItem name="2" to="/manage/changeMovie">
+                                <Icon type="ios-build-outline" />
+                                修改仓库电影信息
+                            </MenuItem>
+                            <MenuItem name="3" to="/manage/onlineMovie">
+                                <Icon type="ios-bulb-outline" />
+                                上线仓库电影
+                            </MenuItem>
+                            <MenuItem name="4" to="/manage/addSession">
                                 <Icon type="ios-add-circle-outline" />
                                 添加电影场次
                             </MenuItem>
@@ -41,11 +49,11 @@
                             </MenuItem>
                         </MenuGroup>
                         <MenuGroup title="影票管理">
-                            <MenuItem name="3" to="/manage/ticketsFind">
+                            <MenuItem name="5" to="/manage/ticketsFind">
                                 <Icon type="md-search" />
                                 影票搜索
                             </MenuItem>
-                            <MenuItem name="4" to="/manage/selltickets">
+                            <MenuItem name="6" to="/manage/selltickets">
                                 <Icon type="ios-paper-outline" />
                                 售票信息
                             </MenuItem>

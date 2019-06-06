@@ -229,11 +229,11 @@ li{
             </div>
         </div>
         <div>
-            <Row>
-        <Col span="12">
-            <DatePicker placement='bottom' type="date" placeholder="Select date" style="width: 200px"></DatePicker>
-        </Col>
-    </Row>
+        <Row>
+            <Col span="12">
+                <DatePicker placement='bottom' type="date" placeholder="Select date" style="width: 200px"></DatePicker>
+            </Col>
+        </Row>
         </div>
     </div>
 </template>
