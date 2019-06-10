@@ -92,7 +92,7 @@ export default {
     checkoutname(){
       let username = this.formInline.user
       if(username != ''){
-        axios.post('http://47.94.92.88:8080/TTMS/checkName',{username:username}).then((res)=>{
+        axios.post('http://192.168.43.133:8080/TTMS/checkName',{username:username}).then((res)=>{
           if(res.data.status == 500){
             this.$Message.error('该用户名已被注册！')
           }
@@ -111,7 +111,7 @@ export default {
           let username = this.formInline.user
           let password = this.formInline.password
           axios.defaults.withCredentials = true
-          axios.post('http://47.94.92.88:8080/TTMS/checkMail',{
+          axios.post('http://192.168.43.133:8080/TTMS/checkMail',{
             username:username,
             password:password,
             mailbox:email,
@@ -140,7 +140,7 @@ export default {
             else{
               let Code = localStorage.getItem('Code')
               if(Code == '验证码：' + this.formInline.code){
-                axios.post('http://47.94.92.88:8080/TTMS/register', {
+                axios.post('http://192.168.43.133:8080/TTMS/register', {
                   username:this.formInline.user,
                   password:this.formInline.password,
                   mailbox:this.formInline.email

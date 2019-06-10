@@ -49,11 +49,11 @@
                             </MenuItem>
                         </MenuGroup>
                         <MenuGroup title="影票管理">
-                            <MenuItem name="5" to="/manage/ticketsFind">
+                            <MenuItem name="6" to="/manage/ticketsFind">
                                 <Icon type="md-search" />
                                 影票搜索
                             </MenuItem>
-                            <MenuItem name="6" to="/manage/selltickets">
+                            <MenuItem name="7" to="/manage/selltickets">
                                 <Icon type="ios-paper-outline" />
                                 售票信息
                             </MenuItem>

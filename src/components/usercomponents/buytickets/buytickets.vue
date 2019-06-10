@@ -28,12 +28,12 @@
         </div>
         <div style="width:1100px;min-height:400px;margin-bottom:50px;position:relative;left:50%;margin-left:-550px;">
             <ul style="overflow:hidden;">
-                <li @click="changetop(index)" :class = "num == index ? 'istime' : 'checktime' " v-for="(session,index) in introduce.sessions" :key="session.time">
+                <li @click="changetop(index)" :class = "num == index ? 'istime' : 'checktime' " v-for="(session,index) in introduce.sessions.slice(0,5)" :key="session.time" >
                     {{ session.time }}
                 </li>
             </ul>
             <ul style="margin-top:20px;">
-                <li class="timgLine" v-for="everyshow in introduce.show" :key="everyshow.startTime">
+                <li class="timgLine" v-for="(everyshow,index) in introduce.show" :key="index">
                     <div style="height:100%;width:15%;float:left;">
                         <p style="font-size:1.7em;margin-top:5px;">{{ everyshow.startTime }}</p>
                         <p style="font-size:0.8em;">{{ everyshow.overTime }} 散场</p>
@@ -95,6 +95,9 @@ export default {
     },
     mounted:function (){
         this.findIfo()
+        this.$router.afterEach((to, from, next) => {
+            window.scrollTo(0, 0)
+        })
     },
     methods:{
         findIfo(){ //从localstorage中获取电影的name名称

@@ -138,7 +138,7 @@ export default {
   axios.post('http://taskerd.xupt.org/control/verify_Captcha',Code).then((res)=>{
     // console.log(res);
     if(res.data.status == 200){
-        axios.post('http://47.94.92.88:8080/TTMS/login',data).then((res)=>{
+        axios.post('http://192.168.43.133:8080/TTMS/login',data).then((res)=>{
           if(res.data.status == 200){
             localStorage.setItem('username',data.username);
             console.log(localStorage.getItem('username'))

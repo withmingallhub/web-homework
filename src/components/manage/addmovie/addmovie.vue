@@ -51,13 +51,13 @@ export default {
             file:'',
             movieUrl:'',
             movieInfo:{
-                movieName:'复仇者联盟4',
-                movieType:'动作、科幻',
-                onlineTime:'2019-06-07',
-                movieLong:'181',
-                movieDirector:'安东尼·罗素、乔·罗素',
-                movieProtag:'小罗伯特·唐尼、克里斯·埃文斯、克里斯·海姆斯沃斯、马克·鲁法洛、斯嘉丽·约翰逊、杰瑞米·雷纳、保罗·路德、布丽·拉尔森、唐·钱德尔、凯伦·吉兰、乔什·布洛林等主演。',
-                introduct:'《复仇者联盟4：终局之战》（Avengers: Endgame）是安东尼·罗素和乔·罗素执导的美国科幻电影，改编自美国漫威漫画，漫威电影宇宙（Marvel Cinematic Universe，缩写为MCU）第22部影片，由小罗伯特·唐尼、克里斯·埃文斯、克里斯·海姆斯沃斯、马克·鲁法洛、斯嘉丽·约翰逊、杰瑞米·雷纳、保罗·路德、布丽·拉尔森、唐·钱德尔、凯伦·吉兰、乔什·布洛林等主演。'
+                movieName:'',
+                movieType:'',
+                onlineTime:'',
+                movieLong:'',
+                movieDirector:'',
+                movieProtag:'',
+                introduct:''
             },
             options3:{
                 disabledDate (date) {
@@ -89,7 +89,7 @@ export default {
                 author:this.movieInfo.movieDirector,
                 production:this.movieInfo.movieProtag
             }
-            axios.post('http://47.94.92.88:8080/TTMS/addMovieExceptPhoto',data).then((res)=>{
+            axios.post('http://192.168.43.133:8080/TTMS/addMovieExceptPhoto',data).then((res)=>{
                 console.log(res)
             })
         }
