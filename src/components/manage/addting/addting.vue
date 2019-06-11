@@ -33,7 +33,8 @@ export default {
     methods:{
         addtings(){
             axios.post('http://192.168.43.133:8080/TTMS/addHall',this.addting).then((res)=>{
-                console.log(res)
+                console.log(res) 
+                
             })
         }
     }
