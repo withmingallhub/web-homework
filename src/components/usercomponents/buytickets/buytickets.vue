@@ -26,7 +26,7 @@
                 </div>
             </div>
         </div>
-        <div style="width:1100px;min-height:400px;margin-bottom:50px;position:relative;left:50%;margin-left:-550px;">
+        <div style="width:1100px;min-height:100px;margin-bottom:50px;position:relative;left:50%;margin-left:-550px;">
             <ul style="overflow:hidden;">
                 <li @click="changetop(index)" :class = "num == index ? 'istime' : 'checktime' " v-for="(session,index) in introduce.sessions.slice(0,5)" :key="session.time" >
                     {{ session.time }}
@@ -43,13 +43,24 @@
                         <p style="font-size:0.6em;">{{ everyshow.whereting }}</p>
                     </div>
                     <div style="height:100%;width:15%;float:right;">
-                        <Button type="warning" style="padding:3px 13px;margin-top:14px;" @click="choiseChar">购票</Button>
+                        <Button type="warning" style="padding:3px 13px;margin-top:14px;" @click="choisetheChar(everyshow)">购票</Button>
                     </div>
                     <div style="height:100%;width:15%;float:right;margin-right:20px;">
                         <p style="font-size:1.5em;color:rgb(6,193,174);margin-top:15px;">{{ everyshow.money }}</p>
                     </div>
                 </li>
             </ul>
+        </div>
+        <div class="choiseChar" v-if="bytickets">
+            <div style="height:100px;">
+                <p>{{ name }}</p>
+                <p>{{ introduce.sessions[num].time }}</p>
+                <p>开始时间：{{ choiseChar.startTime }} 结束时间:{{ choiseChar.overTime }} {{ choiseChar.whereting }}{{ choiseChar.tingtype }}</p>
+                <p>票价：{{ choiseChar.money }}</p>
+            </div>
+            <div>
+                
+            </div>
         </div>
     </div>
 </template>
@@ -58,13 +69,16 @@
 export default {
     data() {
         return{
+            // localstorage中电影的名称
             name:'',
             introduce:{
+                // 电影演出计划的日期
                 sessions:[
                     {time:'2019-05-20'},
                     {time:'2019-05-21'},
                     {time:'2019-05-22'},
                 ],
+                // 当天的具体演出计划
                 show:[
                     {
                         startTime:'17:45',
@@ -81,6 +95,7 @@ export default {
                         money:'￥39'
                     }
                 ],
+                // 在localstorage中的电影的详细信息
                 grade:`8.9`,
                 timewatch:'2019-05-20',
                 director:'安东尼·罗素、乔·罗素',
@@ -91,6 +106,12 @@ export default {
                 introduct:'《复仇者联盟4：终局之战》（Avengers: Endgame）是安东尼·罗素和乔·罗素执导的美国科幻电影，改编自美国漫威漫画，漫威电影宇宙（Marvel Cinematic Universe，缩写为MCU）第22部影片，由小罗伯特·唐尼、克里斯·埃文斯、克里斯·海姆斯沃斯、马克·鲁法洛、斯嘉丽·约翰逊、杰瑞米·雷纳、保罗·路德、布丽·拉尔森、唐·钱德尔、凯伦·吉兰、乔什·布洛林等主演。',
             },
             num:0,
+            // 购票组件是否显示
+            bytickets:false,
+            // 购票的演出计划信息
+            choiseChar:{
+                
+            }
         }
     },
     mounted:function (){
@@ -210,8 +231,11 @@ export default {
             else   this.introduce.show = arr3
             console.log(this.introduce.show)
         },
-        choiseChar(){
-            alert('aa')
+        choisetheChar(show){
+            this.choiseChar = show
+            this.choiseChar.moviename = this.name
+            this.choiseChar.time = this.introduce.sessions[this.num].time
+            this.bytickets = true
         }
     }
 }
@@ -254,5 +278,12 @@ export default {
     list-style: none;
     border-top:1px solid rgb(216,216,216); 
     border-bottom:1px solid rgb(216,216,216); 
+}
+.choiseChar{
+    min-height:200px;
+    width:80%;
+    position: relative;
+    left:10%;
+    border:1px solid black;
 }
 </style>

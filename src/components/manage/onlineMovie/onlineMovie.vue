@@ -26,10 +26,8 @@ export default {
     },
     methods:{
         getmovie(){
-            axios.get('http://192.168.43.133:8080/TTMS/getMovieList').then((res)=>{
-                for(let i = 0;i < res.data.length;i ++){
-                    this.movies.push(res.data[i].moviename)
-                }
+            axios.get('http://192.168.43.133:8080/TTMS/getMovieNameListNotShow').then((res)=>{
+                this.movies = res.data
                 console.log(this.movies)
             })
         },

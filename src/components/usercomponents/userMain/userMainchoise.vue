@@ -73,6 +73,8 @@ li{
     height: 80%;
     width: 100%;
     margin-top: 20px;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .everyHotPre{
     height:100%;
@@ -217,13 +219,13 @@ li{
                 <li style="float:right;margin-top:15px;margin-right:60px;"><a href="" @click="moreMovies(hotPreChange.sendMovie,hotPreChange.chang,hotPreChange.type)" style="color:orange;">查看更多</a></li>
             </ul>
             <div class="hotPreMain" v-if="hotPreChange.type == 0">
-                <div class="everyHotPre" v-for="(movie,index) in hotPreChange.hotMovie.slice(0,4)" :key="index">
+                <div class="everyHotPre" v-for="(movie,index) in hotPreChange.hotMovie" :key="index">
                     <img class="movieClickImg" @click="getMovieDetail(movie.name)" :src="movie.url" alt="" height="80%" width="80%">
                     <p class="movieClickName" @click="getMovieDetail(movie.name)">{{ movie.name }}</p>
                 </div>
             </div>
             <div class="hotPreMain" v-if="hotPreChange.type == 1">
-                <div class="everyHotPre" v-for="(movie,index) in hotPreChange.preMovie.slice(0,4)" :key="index">
+                <div class="everyHotPre" v-for="(movie,index) in hotPreChange.preMovie" :key="index">
                     <img class="movieClickImg" @click="getMovieDetail(movie.name)" :src="movie.url" alt="" height="80%" width="80%">
                     <p class="movieClickName" @click="getMovieDetail(movie.name)">{{ movie.name }}</p>
                 </div>
