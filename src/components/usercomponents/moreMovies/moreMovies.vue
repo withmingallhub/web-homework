@@ -44,12 +44,10 @@ export default {
 .top{
     height:50px;
     width: 100%;
-    border: 1px solid black;
 }
 .MhotPreMain{
     overflow: hidden;
     width:100%;
-    border: 1px solid black;
 }
 .MeveryHotPre{
     height: 50%;

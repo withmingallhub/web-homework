@@ -43,7 +43,7 @@
                         <p style="font-size:0.6em;">{{ everyshow.whereting }}</p>
                     </div>
                     <div style="height:100%;width:15%;float:right;">
-                        <Button type="warning" style="padding:3px 13px;margin-top:14px;">购票</Button>
+                        <Button type="warning" style="padding:3px 13px;margin-top:14px;" @click="choiseChar">购票</Button>
                     </div>
                     <div style="height:100%;width:15%;float:right;margin-right:20px;">
                         <p style="font-size:1.5em;color:rgb(6,193,174);margin-top:15px;">{{ everyshow.money }}</p>
@@ -90,7 +90,7 @@ export default {
                 url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3527165871,1016449403&fm=58&s=787B20C402B38BC456651C8D0300E088',
                 introduct:'《复仇者联盟4：终局之战》（Avengers: Endgame）是安东尼·罗素和乔·罗素执导的美国科幻电影，改编自美国漫威漫画，漫威电影宇宙（Marvel Cinematic Universe，缩写为MCU）第22部影片，由小罗伯特·唐尼、克里斯·埃文斯、克里斯·海姆斯沃斯、马克·鲁法洛、斯嘉丽·约翰逊、杰瑞米·雷纳、保罗·路德、布丽·拉尔森、唐·钱德尔、凯伦·吉兰、乔什·布洛林等主演。',
             },
-            num:0
+            num:0,
         }
     },
     mounted:function (){
@@ -209,6 +209,9 @@ export default {
                 this.introduce.show = arr2
             else   this.introduce.show = arr3
             console.log(this.introduce.show)
+        },
+        choiseChar(){
+            alert('aa')
         }
     }
 }

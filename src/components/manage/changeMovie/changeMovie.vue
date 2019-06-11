@@ -14,6 +14,8 @@
                 <Upload 
                     ref="upload"
                     :show-upload-list="false"
+                    :format="['jpg','jpeg','png']"
+                    :on-success="handleSuccess"
                     action="http://192.168.43.133:8080/TTMS/addMovieOnlyPhoto"
                     :data="noneImg1" 
                     style="width:50%;float:left;border-radius:0px;padding:0px;border:0px;margin:0px">
@@ -72,6 +74,9 @@ export default {
                 //     introduct:'《复仇者联盟4：终局之战》（Avengers: Endgame）是安东尼·罗素和乔·罗素执导的美国科幻电影，改编自美国漫威漫画，漫威电影宇宙（Marvel Cinematic Universe，缩写为MCU）第22部影片，由小罗伯特·唐尼、克里斯·埃文斯、克里斯·海姆斯沃斯、马克·鲁法洛、斯嘉丽·约翰逊、杰瑞米·雷纳、保罗·路德、布丽·拉尔森、唐·钱德尔、凯伦·吉兰、乔什·布洛林等主演。'
                 // }
             ],
+            changeMovieInfo:{
+
+            }
         }
     },
     methods:{
@@ -93,22 +98,30 @@ export default {
           render: (h) => {
             return h(popup, {
                 on: {
-                    mail: (mail) => {
-                        this.mail = mail
+                    changeMovieInfo: (changeMovieInfo) => {
+                        this.changeMovieInfo = changeMovieInfo
                     },
-                    group_id: (group_id) => {
-                        this.group_id = group_id
-                    },
-
                 }
             })
           },
           onOk: () => {
-                const msg = this.$Message.loading({
-                    content: '正在保存..',
-                    duration: 1,
+                let data = {
+                    type:this.changeMovieInfo.movieType,
+                    duration:this.changeMovieInfo.movieLong,
+                    author:this.changeMovieInfo.movieDirector,
+                    production:this.changeMovieInfo.movieProtag,
+                    introduction:this.changeMovieInfo.introduct,
+                    releaseDate:this.changeMovieInfo.onlineTime,
+                    moviename:this.changeMovieInfo.moviename
+                }
+                console.log(data)
+                axios.post('http://192.168.43.133:8080/TTMS/alterMovie',data).then((res)=>{
+                    console.log(res)
                 })
-                location.reload()
+                // const msg = this.$Message.loading({
+                //     content: '正在保存..',
+                //     duration: 1,
+                // })
           }, 
         })    
       },
@@ -130,6 +143,10 @@ export default {
               }
               console.log(this.movies)
           })
+      },
+      handleSuccess(){
+          this.$Message.success('上传成功')
+          location.reload()
       }
     },
     mounted(){

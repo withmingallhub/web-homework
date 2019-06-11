@@ -9,6 +9,7 @@ import changeMovie from '@/components/manage/changeMovie/changeMovie'
 import onlineMovie from '@/components/manage/onlineMovie/onlineMovie'
 import deletMovies from '@/components/manage/deletMovies/deletMovies'
 import selltickets from '@/components/manage/selltickets/selltickets'
+import addting from '@/components/manage/addting/addting'
 import ticketsFind from '@/components/manage/ticketsFind/ticketsFind'
 import user from '@/user'
 import mainchoise from '@/components/usercomponents/userMain/userMainchoise'
@@ -19,6 +20,7 @@ import connectService from '@/components/usercomponents/connectService/connectSe
 import myFoot from '@/components/usercomponents/myFoot/myFoot'
 import moreMovies from '@/components/usercomponents/moreMovies/moreMovies'
 import set from '@/components/usercomponents/set/set'
+import choiseChar from '@/components/usercomponents/choiseChar/choiseChar'
 import grade from '@/components/usercomponents/grade/grade'
 import buytickets from '@/components/usercomponents/buytickets/buytickets'
 
@@ -87,6 +89,13 @@ export default[
                     name:'1-0-7'
                 }
             },
+            {
+                path:'/manage/addting',
+                component:addting,
+                meta:{
+                    name:'1-0-8'
+                }
+            },
         ]
     },
     {
@@ -141,6 +150,11 @@ export default[
                 path:'/moreMovies',
                 component:moreMovies,
                 name:'moreMovies'
+            },
+            {
+                path:'/choiseChar',
+                component:choiseChar,
+                name:'choiseChar'
             }
         ]
     }

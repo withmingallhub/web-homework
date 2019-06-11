@@ -21,15 +21,12 @@ export default {
         return{
             online:'',
             movies:[
-                '流浪地球',
-                '大侦探皮卡丘',
-                '你的名字',
             ],
         }
     },
     methods:{
         getmovie(){
-            axios.get('http://192.168.43.133:8080/TTMS/addMovieExceptPhoto').then((res)=>{
+            axios.get('http://192.168.43.133:8080/TTMS/getMovieList').then((res)=>{
                 for(let i = 0;i < res.data.length;i ++){
                     this.movies.push(res.data[i].moviename)
                 }

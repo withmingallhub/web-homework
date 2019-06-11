@@ -27,7 +27,11 @@
                 <Sider hide-trigger :style="{background: '#fff'}">
                     <Menu active-name="1" theme="light">
                         <MenuGroup title="电影管理">
-                            <MenuItem name="1" to="/manage/addmovie">
+                            <MenuItem name="0" to="/manage/addting">
+                                <Icon type="md-add" />
+                                添加演出厅
+                            </MenuItem>
+                            <MenuItem name="-1" to="/manage/addmovie">
                                 <Icon type="md-add" />
                                 添加新电影
                             </MenuItem>
@@ -45,7 +49,7 @@
                             </MenuItem>
                             <MenuItem name="5" to="/manage/deletMovies">
                                 <Icon type="md-close" />
-                                删除电影/场次
+                                删除电影
                             </MenuItem>
                         </MenuGroup>
                         <MenuGroup title="影票管理">

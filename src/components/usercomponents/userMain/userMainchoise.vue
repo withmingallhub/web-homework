@@ -8,10 +8,18 @@ li{
     min-width: 800px;
     padding-right: 2.5%;
     padding-left:2.5%;
-    background: rgb(6,193,174);
-    /* background-image: url('http://img4.imgtn.bdimg.com/it/u=2803748476,3995849302&fm=26&gp=0.jpg'); */
-    /* background-repeat:no-repeat;
-    background-size: 100% 100%; */
+}
+.changeImg::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:500px;
+    background:transparent url("http://attachments.gfan.net.cn/forum/201703/09/003029ccu4wuooyi0o0y9z.jpg") center center no-repeat;
+    filter:blur(3px);
+    z-index:-1;
+    background-size:cover;
 }
 .swiper-container {
     width: 100%;
@@ -74,6 +82,10 @@ li{
 .movieClickName{
     font-size:1.2em;
     margin-top:10px;
+    padding: 0px 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .movieClickName:hover{
     cursor: pointer;
@@ -83,7 +95,7 @@ li{
 }
 .ranking {
     margin-top: 30px;
-    border: 1px solid black;
+    border-top: 1px solid rgb(200,200,200);
     height: 300px;
     min-width: 800px;
 }
@@ -97,11 +109,23 @@ li{
 }
 .rankingName {
     height: 60px;
+    width: 80%;
     font-size: 2em;
     color: orange;
 }
 .rankingMovie {
-    height: 60px;
+    height: 40px;
+    width: 80%;
+    padding: 0px 30px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    line-height: 40px;
+    font-size: 1.3em;
+}
+.rankingMovie:hover{
+    cursor: pointer;
+    border-left:3px solid rgba(6,193,174,0.5);
 }
 </style>
 <template>
@@ -193,13 +217,13 @@ li{
                 <li style="float:right;margin-top:15px;margin-right:60px;"><a href="" @click="moreMovies(hotPreChange.sendMovie,hotPreChange.chang,hotPreChange.type)" style="color:orange;">查看更多</a></li>
             </ul>
             <div class="hotPreMain" v-if="hotPreChange.type == 0">
-                <div class="everyHotPre" v-for="(movie,index) in hotPreChange.hotMovie.slice(0,5)" :key="index">
+                <div class="everyHotPre" v-for="(movie,index) in hotPreChange.hotMovie.slice(0,4)" :key="index">
                     <img class="movieClickImg" @click="getMovieDetail(movie.name)" :src="movie.url" alt="" height="80%" width="80%">
                     <p class="movieClickName" @click="getMovieDetail(movie.name)">{{ movie.name }}</p>
                 </div>
             </div>
             <div class="hotPreMain" v-if="hotPreChange.type == 1">
-                <div class="everyHotPre" v-for="(movie,index) in hotPreChange.preMovie.slice(0,5)" :key="index">
+                <div class="everyHotPre" v-for="(movie,index) in hotPreChange.preMovie.slice(0,4)" :key="index">
                     <img class="movieClickImg" @click="getMovieDetail(movie.name)" :src="movie.url" alt="" height="80%" width="80%">
                     <p class="movieClickName" @click="getMovieDetail(movie.name)">{{ movie.name }}</p>
                 </div>
@@ -211,20 +235,14 @@ li{
             <div class="heighGrade">
                 <ul style="width:300px;">
                     <li class="rankingName" style="text-align:center;">高分榜</li>
-                    <li class="rankingMovie">1</li>
-                    <li class="rankingMovie">2</li>
-                    <li class="rankingMovie">3</li>
-                    <li class="rankingMovie">4</li>
+                    <li class="rankingMovie" v-for="(one,index) in heighGrade.slice(0,5)" :key="index">{{ one.name }}</li>
                 </ul>
             </div>
             <!-- 新上线电影榜 -->
             <div class="newMovie">
                 <ul style="width:300px;">
                     <li class="rankingName" style="text-align:center;">新上线</li>
-                    <li class="rankingMovie">1</li>
-                    <li class="rankingMovie">2</li>
-                    <li class="rankingMovie">3</li>
-                    <li class="rankingMovie">4</li>
+                    <li class="rankingMovie" v-for="(one,index) in newMovie.slice(0,5)" :key="index">{{ one.name }}</li>
                 </ul>
             </div>
         </div>
@@ -278,11 +296,37 @@ export default {
             ],
             // 高分榜
             heighGrade:[
-
+                {
+                    url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3527165871,1016449403&fm=58&s=787B20C402B38BC456651C8D0300E088',
+                    name:'复仇者联盟4复仇者联盟4复仇者联盟4'
+                },
+                {
+                    url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=385795278,2261803346&fm=58&s=CBA5870A4C9401EBF92A454F030070FA',
+                    name:'调音师'
+                },
+                {
+                    url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3527165871,1016449403&fm=58&s=787B20C402B38BC456651C8D0300E088',
+                    name:'复仇者联盟4'
+                },
+                {
+                    url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=385795278,2261803346&fm=58&s=CBA5870A4C9401EBF92A454F030070FA',
+                    name:'调音师'
+                },
+                {
+                    url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=385795278,2261803346&fm=58&s=CBA5870A4C9401EBF92A454F030070FA',
+                    name:'调音师'
+                },
             ],
             // 新上线
             newMovie:[
-
+                {
+                    url:'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3895436776,1493313546&fm=58&s=C115C730589647FF5E89F0C5030070A1',
+                    name:'流浪地球'
+                },
+                {
+                    url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3527165871,1016449403&fm=58&s=787B20C402B38BC456651C8D0300E088',
+                    name:'复仇者联盟4'
+                },
             ],
             // 热播榜 
             // chang 用循环渲染顶部切换按钮

@@ -1,13 +1,13 @@
 <template>
     <div>
-        <h2>添加演出计划</h2>
+        <h2>添加/删除演出计划</h2>
         <div style="text-align:left;">
             <div style="margin-left:50px;">
                 <Select v-model="addPlanInfo.addPlan" style="width:200px" class="selectMovie">
                     <Option v-for="movie in movies" :value="movie" :key="movie">{{ movie }}</Option>
                 </Select>
             </div>
-            <Button type="info" style="margin:20px 50px;" @click="getInfo">添加该电影演出计划</Button>
+            <Button type="info" style="margin:20px 50px;" @click="getInfo">添加/删除该电影演出计划</Button>
             <div v-if="introduce.sessions" style="width:1100px;min-height:400px;margin:0px 0px 50px 50px;">
                 <ul style="overflow:hidden;">
                     <li @click="changetop(index)" :class = "num == index ? 'istime' : 'checktime' " v-for="(session,index) in introduce.sessions.slice(0,5)" :key="session.time" >
@@ -25,7 +25,7 @@
                             <p style="font-size:0.6em;">{{ everyshow.whereting }}</p>
                         </div>
                         <div style="height:100%;width:15%;float:right;">
-                            <Button type="warning" style="padding:3px 13px;margin-top:14px;">购票</Button>
+                            <Button type="warning" style="padding:3px 13px;margin-top:14px;">删除</Button>
                         </div>
                         <div style="height:100%;width:15%;float:right;margin-right:20px;">
                             <p style="font-size:1.5em;color:rgb(6,193,174);margin-top:15px;">{{ everyshow.money }}</p>
@@ -34,11 +34,6 @@
                 </ul>
                 <div style="margin-top:20px;">
                     <h3>添加演出计划信息</h3>
-                    <Row style="margin-top:20px;">
-                        <Col span="12">
-                            <DatePicker class="movieInfo" placement='bottom' type="date" placeholder="选择日期：" style="width: 200px" v-model="addPlanInfo.day"  format="yyyy-MM-dd" @on-change='addPlanInfo.day=$event' :options="options3"></DatePicker>
-                        </Col>
-                    </Row>
                     <div>
                         <Select v-model="addPlanInfo.yanting" style="width:200px" class="selectMovie">
                             <Option v-for="ting in yanchuting" :value="ting" :key="ting">{{ ting }}</Option>
@@ -50,6 +45,14 @@
                     <div style="margin-top:20px;">
                         <Input style="width:200px;" placeholder="票价" v-model="addPlanInfo.money"></Input><span style="line-height:20px;font-size:1.2em;">(单位:元)</span>
                     </div>
+                    <div style="margin-top:20px;">
+                        <Row>
+                            <Col span="12">
+                                <DatePicker class="movieInfo" placement='bottom' type="date" placeholder="选择日期：" style="width: 200px" v-model="addPlanInfo.day"  format="yyyy-MM-dd" @on-change='addPlanInfo.day=$event' :options="options3"></DatePicker>
+                            </Col>
+                        </Row>
+                    </div>
+                    <Button type="info" style="margin-top:20px;">提交</Button>
                 </div>
             </div>
         </div>
@@ -269,5 +272,8 @@ export default {
 }
 .selectMovie{
     margin-top:20px;
+}
+.movieInfo{
+    margin:0px;
 }
 </style>

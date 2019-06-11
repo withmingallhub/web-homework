@@ -1,17 +1,6 @@
 <template>
     <div>
-        <!-- <div style="margin-left:140px;">
-            <div class="movieImage">
-                <img v-if="!movieUrl" src="@/assets/addMovie.jpg" alt="" height="100%" width="100%">
-                <img v-if="movieUrl" :src="movieUrl" alt="" height="100%" width="100%">
-            </div>
-            <Upload
-                :before-upload="handleUpload"
-                action=""
-                class="fileFather">
-                <Button icon="ios-cloud-upload-outline">选择电影封面</Button>
-            </Upload>
-        </div> -->
+        <h3>添加新电影</h3>
         <div style="margin-left:100px;padding:20px 10px;overflow:hidden;">
             <div style="clear:both;margin-top:20px;overflow:hidden;">
                 <Input type="text" class="movieInfo" placeholder="填写电影名称" v-model="movieInfo.movieName"></Input>
@@ -67,18 +56,6 @@ export default {
         }
     },
     methods:{
-        // handleUpload (file) {
-        //     this.file = file;
-        //     this.movieUrl = window.webkitURL.createObjectURL(file);
-        //     return false;  
-        // },
-        // upload () {
-        //     if(this.file){
-        //         this.$refs.upload.post(this.file);
-        //     }else{
-        //         alert('未选择图片')
-        //     }
-        // }
         createMovie(){
             let data = {
                 moviename:this.movieInfo.movieName,
