@@ -50,22 +50,51 @@
                     </div>
                 </li>
             </ul>
-        </div>
-        <div class="choiseChar" v-if="bytickets">
-            <div style="height:100px;">
-                <p>{{ name }}</p>
-                <p>{{ introduce.sessions[num].time }}</p>
-                <p>开始时间：{{ choiseChar.startTime }} 结束时间:{{ choiseChar.overTime }} {{ choiseChar.whereting }}{{ choiseChar.tingtype }}</p>
-                <p>票价：{{ choiseChar.money }}</p>
-            </div>
-            <div>
-                
+            <div class="choiseChar" v-if="bytickets">
+                <div style="border-bottom:1px solid rgb(200,200,200);overflow:hidden;margin-bottom:20px;">
+                    <h2>{{ name }}</h2>
+                    <div style="height:60px;width:15%;float:left;">
+                        <p style="font-size:1.7em;margin-top:5px;">{{ choiseChar.startTime }}</p>
+                        <p style="font-size:0.8em;">{{ choiseChar.overTime }} 散场</p>
+                    </div>
+                    <div style="height:60px;width:15%;float:left;margin-left:20px;">
+                        <p style="margin-top:13px;">{{ choiseChar.tingtype }}</p>
+                        <p style="font-size:0.6em;">{{ choiseChar.whereting }}</p>
+                    </div>
+                    <div style="height:60px;width:15%;float:left;margin-right:20px;">
+                        <p style="line-height:60px;font-size:1.2em;color:rgb(6,193,174);">{{ choiseChar.money }}</p>
+                    </div>
+                    <div style="height:60px;float:left;margin-right:20px;">
+                        <span style="line-height:60px;font-size:1.2em;color:rgb(6,193,174);margin-top:15px;">演出日期：{{ introduce.sessions[num].time }}</span>
+                    </div>
+                </div>
+                <div style="width:100%;margin-top:50px;">
+                    <!-- 使用二重循环二维数组，渲染座位信息 -->
+                    <ul v-for="(row,index1) in char" :key="index1" style="overflow:hidden;width:80%;margin-top:20px;text-align:center;">
+                        <li v-for="(col,index2) in row" :key="index2" style="height:40px;width:40px;float:left;margin-right:20px;list-style:none;">
+                            <Icon type="md-bulb" style="height:40px;width:40px;color:red;float:left;font-size:3em;" v-if="col == 1" @click="$Message.error('这个座位被别人选了哦！')"/>
+                            <Icon class="canChoise" type="ios-bulb-outline" style="height:40px;width:40px;float:left;font-size:3em;" v-if="col == 0" @click="clickChar(index1,index2,col)"/>
+                            <Icon class="canChoise" type="ios-bulb" style="height:40px;width:40px;float:left;font-size:3em;color:green;" v-if="col == 2" @click="clickChar(index1,index2,col)"/>
+                        </li>
+                    </ul>
+                </div>
+                <div style="height:50px;margin-top:50px;text-align:left;">
+                    <Button type="info" @click="shopping">提交订单</Button>
+                    <span style="float:right;line-height:40px;margin-right:20px;">不可选的座位</span>
+                    <Icon type="md-bulb" style="height:40px;width:40px;color:red;float:right;font-size:3em;"/>
+                    <span style="float:right;line-height:40px;margin-right:20px;">可选择的座位</span>
+                    <Icon class="canChoise" type="ios-bulb-outline" style="height:40px;width:40px;float:right;font-size:3em;"/>
+                    <span style="float:right;line-height:40px;margin-right:20px;">您选中的座位</span>
+                    <Icon class="canChoise" type="ios-bulb" style="height:40px;width:40px;float:right;font-size:3em;color:green;"/>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     data() {
         return{
@@ -85,6 +114,7 @@ export default {
                         overTime:'19:53',
                         tingtype:'英语3D',
                         whereting:'7号厅',
+                        tingId:7,
                         money:'￥36'
                     },
                     {
@@ -92,6 +122,7 @@ export default {
                         overTime:'22:18',
                         tingtype:'英语3D',
                         whereting:'7号厅',
+                        tingId:7,
                         money:'￥39'
                     }
                 ],
@@ -111,7 +142,19 @@ export default {
             // 购票的演出计划信息
             choiseChar:{
                 
-            }
+            },
+            // 渲染座位页面
+            char:[
+                ['1','1','0','0','0','0','0','0'],
+                ['0','0','0','0','0','1','1','0'],
+                ['0','0','0','0','1','0','0','0']
+            ],
+            // 选座的数量
+            sum:0,
+            // 向后端发送的选座信息
+            sendChar:[
+
+            ],
         }
     },
     mounted:function (){
@@ -126,6 +169,7 @@ export default {
             this.name = name
         },
         changetop(index){
+            this.bytickets = false
             this.num = index
             let arr1 = [
                 {
@@ -133,6 +177,7 @@ export default {
                     overTime:'19:53',
                     tingtype:'英语3D',
                     whereting:'7号厅',
+                    tingId:7,
                     money:'￥36'
                 },
                 {
@@ -140,6 +185,7 @@ export default {
                     overTime:'22:18',
                     tingtype:'英语3D',
                     whereting:'7号厅',
+                    tingId:7,
                     money:'￥39'
                 }
             ]
@@ -149,6 +195,7 @@ export default {
                     overTime:'19:53',
                     tingtype:'中文3D',
                     whereting:'8号厅',
+                    tingId:8,
                     money:'￥36'
                 },
                 {
@@ -156,6 +203,7 @@ export default {
                     overTime:'22:18',
                     tingtype:'中文3D',
                     whereting:'8号厅',
+                    tingId:8,
                     money:'￥39'
                 }
             ]
@@ -165,6 +213,7 @@ export default {
                     overTime:'19:53',
                     tingtype:'中文3D',
                     whereting:'8号厅',
+                    tingId:8,
                     money:'￥36'
                 },
                 {
@@ -172,6 +221,7 @@ export default {
                     overTime:'22:18',
                     tingtype:'中文3D',
                     whereting:'8号厅',
+                    tingId:8,
                     money:'￥39'
                 },
                 {
@@ -179,6 +229,7 @@ export default {
                     overTime:'22:18',
                     tingtype:'中文3D',
                     whereting:'8号厅',
+                    tingId:8,
                     money:'￥39'
                 },
                 {
@@ -186,6 +237,7 @@ export default {
                     overTime:'19:53',
                     tingtype:'中文3D',
                     whereting:'8号厅',
+                    tingId:8,
                     money:'￥36'
                 },
                 {
@@ -193,6 +245,7 @@ export default {
                     overTime:'22:18',
                     tingtype:'中文3D',
                     whereting:'8号厅',
+                    tingId:8,
                     money:'￥39'
                 },
                 {
@@ -200,6 +253,7 @@ export default {
                     overTime:'22:18',
                     tingtype:'中文3D',
                     whereting:'8号厅',
+                    tingId:8,
                     money:'￥39'
                 },
                 {
@@ -207,6 +261,7 @@ export default {
                     overTime:'19:53',
                     tingtype:'中文3D',
                     whereting:'8号厅',
+                    tingId:8,
                     money:'￥36'
                 },
                 {
@@ -214,6 +269,7 @@ export default {
                     overTime:'22:18',
                     tingtype:'中文3D',
                     whereting:'8号厅',
+                    tingId:8,
                     money:'￥39'
                 },
                 {
@@ -221,6 +277,7 @@ export default {
                     overTime:'22:18',
                     tingtype:'中文3D',
                     whereting:'8号厅',
+                    tingId:8,
                     money:'￥39'
                 }
             ]
@@ -232,10 +289,50 @@ export default {
             console.log(this.introduce.show)
         },
         choisetheChar(show){
+            let username = localStorage.getItem('username')
+            if(!username) this.$router.push({path:'/login'})
             this.choiseChar = show
             this.choiseChar.moviename = this.name
             this.choiseChar.time = this.introduce.sessions[this.num].time
             this.bytickets = true
+        },
+        clickChar(index1,index2,col){
+            if(col == 0){
+                if(this.sum > 2){
+                    this.$Message.error('不要太贪心，单个用户最多选三个座位呦！')
+                }
+                else{
+                    this.char[index1].splice(index2,1,'2')
+                    this.sum ++
+                    this.sendChar.push({
+                        row:index1,
+                        col:index2
+                    })
+                }
+            }
+            if(col == 2){
+                this.char[index1].splice(index2,1,'0')
+                this.sum --
+                for(let i = 0;i < this.sendChar.length;i ++){
+                    if(this.sendChar[i].row == index1 && this.sendChar[i].col == index2){
+                        this.sendChar.splice(i,1)
+                    }
+                }
+            }
+        },
+        shopping(){
+            for(let i = 0;i < this.sendChar.length;i ++){
+                this.sendChar[i].time = this.introduce.sessions[this.num].time + ' ' + this.choiseChar.startTime + ':00'
+                this.sendChar[i].tingId = this.choiseChar.tingId
+                this.sendChar[i].username = localStorage.getItem('username')
+            }
+
+            console.log(this.sendChar)
+            // axios.post('',this.sendChar).then((res)=>{
+                // if(res.status == 200){
+                    // this.$router.push({path:'/shopcar'})
+                // }
+            // })
         }
     }
 }
@@ -281,9 +378,12 @@ export default {
 }
 .choiseChar{
     min-height:200px;
-    width:80%;
-    position: relative;
-    left:10%;
-    border:1px solid black;
+    width:1100px;
+    margin: 50px 0px;
+    border-top: 1px solid rgb(200,200,200);
+    padding-top:10px;
+}
+.canChoise:hover{
+    cursor: pointer;
 }
 </style>

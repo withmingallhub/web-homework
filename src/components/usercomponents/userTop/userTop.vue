@@ -20,17 +20,7 @@
                 <li @click="pushCollect"><Icon style="color:red" type="ios-basket" />我的收藏</li>
                 <li @click="pushConnectService"><Icon style="color:red;" type="ios-call" />联系客服</li>
                 <li @click="pushMyFoot"><Icon type="ios-stopwatch-outline" style="color:red;" />我的足迹</li>
-                <Dropdown @on-click="changeRouter" trigger="click" style="margin-left: 20px;float:right;line-height:40px;">
-                    <a href="javascript:void(0)" style="color:red;" onMouseDown="this.style.color='black'" onMouseUp="this.style.color='red'">
-                        更多
-                        <Icon type="md-arrow-dropdown" />
-                    </a>
-                    <DropdownMenu slot="list">
-                        <DropdownItem name="set"><Icon type="ios-settings-outline" style="color:red;" />设置</DropdownItem>
-                        <DropdownItem name="commit"><Icon type="ios-text-outline" style="color:red;" />我的评论</DropdownItem>
-                        <DropdownItem name="grade"><Icon type="ios-backspace-outline" style="color:red;" />退出登录</DropdownItem>
-                    </DropdownMenu>
-                </Dropdown>
+                <li @click="hislogin"><Icon type="ios-backspace-outline" style="color:red;" />退出登录</li>
             </ul>
         </div>
     </div>
@@ -62,26 +52,26 @@ export default {
             this.$router.push({path:'/Info'})
         },
         pushShopCar(){
-            this.$router.push({path:'/shopcar'})
+            let username = localStorage.getItem('username')
+            if(!username) this.$router.push({path:'/login'})
+            else this.$router.push({path:'/shopcar'})
         },
         pushCollect(){
-            this.$router.push({path:'/collectible'})
+            let username = localStorage.getItem('username')
+            if(!username) this.$router.push({path:'/login'})
+            else this.$router.push({path:'/collectible'})
         },
         pushConnectService(){
             this.$router.push({path:'/connectService'})
         },
         pushMyFoot(){
-            this.$router.push({path:'/myfoot'})
+            let username = localStorage.getItem('username')
+            if(!username) this.$router.push({path:'/login'})
+            else this.$router.push({path:'/myfoot'})
         },
-        changeRouter(name){
-            if(name == 'set')
-            this.$router.push({path:'/set'})
-            if(name == 'commit')
-            this.$router.push({path:'/commit'})
-            if(name == 'grade'){
-                localStorage.removeItem("username")
-                this.$router.push({path:'/login'})
-            }
+        hislogin(){
+            localStorage.removeItem('username')
+            location.reload()
         }
     }
 }

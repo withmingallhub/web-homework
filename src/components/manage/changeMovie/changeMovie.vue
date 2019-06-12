@@ -118,10 +118,10 @@ export default {
                 axios.post('http://192.168.43.133:8080/TTMS/alterMovie',data).then((res)=>{
                     console.log(res)
                 })
-                // const msg = this.$Message.loading({
-                //     content: '正在保存..',
-                //     duration: 1,
-                // })
+                const msg = this.$Message.loading({
+                    content: '正在保存..',
+                    duration: 1,
+                })
           }, 
         })    
       },

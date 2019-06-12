@@ -19,9 +19,6 @@ import collectible from '@/components/usercomponents/collectible/collectible'
 import connectService from '@/components/usercomponents/connectService/connectService'
 import myFoot from '@/components/usercomponents/myFoot/myFoot'
 import moreMovies from '@/components/usercomponents/moreMovies/moreMovies'
-import set from '@/components/usercomponents/set/set'
-import choiseChar from '@/components/usercomponents/choiseChar/choiseChar'
-import grade from '@/components/usercomponents/grade/grade'
 import buytickets from '@/components/usercomponents/buytickets/buytickets'
 
 
@@ -135,14 +132,6 @@ export default[
                 component:myFoot
             },
             {
-                path:'/set',
-                component:set
-            },
-            {
-                path:'/grade',
-                component:grade
-            },
-            {
                 path:'/buytickets',
                 component:buytickets
             },
@@ -151,11 +140,6 @@ export default[
                 component:moreMovies,
                 name:'moreMovies'
             },
-            {
-                path:'/choiseChar',
-                component:choiseChar,
-                name:'choiseChar'
-            }
         ]
     }
 ]

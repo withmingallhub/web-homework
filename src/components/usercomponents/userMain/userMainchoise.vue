@@ -237,23 +237,20 @@ li{
             <div class="heighGrade">
                 <ul style="width:300px;">
                     <li class="rankingName" style="text-align:center;">高分榜</li>
-                    <li class="rankingMovie" v-for="(one,index) in heighGrade.slice(0,5)" :key="index">{{ one.name }}</li>
+                    <li class="rankingMovie" v-for="(one,index) in heighGrade" :key="index"  @click="getMovieDetail(one.name)">{{ one.name }}</li>
                 </ul>
             </div>
             <!-- 新上线电影榜 -->
             <div class="newMovie">
                 <ul style="width:300px;">
                     <li class="rankingName" style="text-align:center;">新上线</li>
-                    <li class="rankingMovie" v-for="(one,index) in newMovie.slice(0,5)" :key="index">{{ one.name }}</li>
+                    <li class="rankingMovie" v-for="(one,index) in newMovie" :key="index"  @click="getMovieDetail(one.name)">{{ one.name }}</li>
                 </ul>
             </div>
-        </div>
-        <div>
-        <Row>
-            <Col span="12">
-                <DatePicker placement='bottom' type="date" placeholder="Select date" style="width: 200px"></DatePicker>
-            </Col>
-        </Row>
+            <!-- 额外的div -->
+            <div style="width:300px;height:100%;border:1px solid black;float:left;;">
+
+            </div>
         </div>
     </div>
 </template>
@@ -261,6 +258,7 @@ li{
 <script>
 import Swiper from 'swiper'; 
 import 'swiper/dist/css/swiper.min.css';
+import axios from 'axios'
 
 export default {
     data() {
@@ -321,14 +319,14 @@ export default {
             ],
             // 新上线
             newMovie:[
-                {
-                    url:'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3895436776,1493313546&fm=58&s=C115C730589647FF5E89F0C5030070A1',
-                    name:'流浪地球'
-                },
-                {
-                    url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3527165871,1016449403&fm=58&s=787B20C402B38BC456651C8D0300E088',
-                    name:'复仇者联盟4'
-                },
+                // {
+                //     url:'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3895436776,1493313546&fm=58&s=C115C730589647FF5E89F0C5030070A1',
+                //     name:'流浪地球'
+                // },
+                // {
+                //     url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3527165871,1016449403&fm=58&s=787B20C402B38BC456651C8D0300E088',
+                //     name:'复仇者联盟4'
+                // },
             ],
             // 热播榜 
             // chang 用循环渲染顶部切换按钮
@@ -403,6 +401,7 @@ export default {
         }
     },
     mounted:function(){
+        this.getmovies()
         this.hotPreChange.sendMovie = this.hotPreChange.hotMovie
         // 钩子函数执行轮播图的js代码
         var swiper = new Swiper('.swiper-container', {
@@ -457,6 +456,11 @@ export default {
                     localStorage.setItem('moreMoviesName','即将上线');
             }
             this.$router.push({path:'/moreMovies'})
+        },
+        getmovies(){
+            axios.get('http://192.168.43.133:8080/TTMS/getNewMovie').then((res)=>{
+                console.log(res)
+            })
         }
     }
 }
