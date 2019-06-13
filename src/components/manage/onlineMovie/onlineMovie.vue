@@ -36,6 +36,10 @@ export default {
             axios.post('http://192.168.43.133:8080/TTMS/takeMovieON',{moviename}).then((res)=>{
                 if(res.status == 200){
                     this.$Message.success('上传成功')
+                    const msg = this.$Message.loading({
+                        content: '正在保存..',
+                        duration: 1,
+                    })
                     location.reload()
                 }
             })

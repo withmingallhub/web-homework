@@ -67,7 +67,10 @@ export default {
                 production:this.movieInfo.movieProtag
             }
             axios.post('http://192.168.43.133:8080/TTMS/addMovieExceptPhoto',data).then((res)=>{
-                console.log(res)
+                if(res.data.status == 200){
+                    this.$Message.success('添加成功')
+                    location.reload()
+                }
             })
         }
 

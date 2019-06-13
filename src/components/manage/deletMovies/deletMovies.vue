@@ -4,62 +4,36 @@
             <h3>删除电影</h3>
         </div>
         <div style="margin-top:30px;">
-            <h4>删除未上线电影</h4>
-            <div v-if="noneMovie" class="none">
-                <Select v-model="deletnone" style="width:200px" class="selectMovie">
-                    <Option v-for="movie in noneMovie" :value="movie" :key="movie.moivename">{{ movie.moviename }}</Option>
-                </Select>
+            <div class="none">
+                输入删除电影名称：
                 <br>
-                <Button type="info" style="margin-top:10px;">删除</Button>
-            </div>
-            <h4>删除已上线电影</h4>
-            <div v-if="onlineMovie">
-                <Select v-model="deletonline" style="width:200px" class="selectMovie">
-                    <Option v-for="movie in onlineMovie" :value="movie" :key="movie.moviename">{{ movie.moviename }}</Option>
-                </Select>
+                <Input style="width:200px;margin-top:20px;" type="text" v-model="deletnone"></Input>
                 <br>
-                <Button type="info" style="margin-top:10px;">删除</Button>
+                <Button type="info" style="margin-top:10px;" @click="deletmovies">删除</Button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     data(){
         return{
             deletnone:'',
-            noneMovie:[
-
-            ],
-            deletonline:'',
-            onlineMovie:[
-
-            ],
         }
     },
     methods:{
-        getmovies(){
-            this.noneMovie = [
-                {
-                    moviename:'严欣豪'
-                },{
-                    moviename:'田成浩'
-                },{
-                    moviename:'王皓'
-                }
-            ]
-            this.onlineMovie = [
-                {
-                    moviename:'张衍航'
-                },{
-                    moviename:'罗茗奕'
-                }
-            ]
+        deletmovies(){
+            axios.post('http://192.168.43.133:8080/TTMS/delMovie',{
+                moviename:this.deletnone
+            }).then((res)=>{
+                console.log(res)
+            })
         }
     },
     mounted(){
-        this.getmovies()
     }
 }
 </script>

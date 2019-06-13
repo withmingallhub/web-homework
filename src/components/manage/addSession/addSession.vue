@@ -21,11 +21,11 @@
                             <p style="font-size:0.8em;">{{ everyshow.endDate }} 散场</p>
                         </div>
                         <div style="height:100%;width:15%;float:left;margin-left:20px;">
-                            <p style="margin-top:13px;">{{ everyshow.hallID }}</p>
-                            <p style="font-size:0.6em;">{{ everyshow.hallID }}</p>
+                            <p style="margin-top:13px;">{{ everyshow.hallType }}</p>
+                            <p style="font-size:0.6em;">{{ everyshow.hallName }}</p>
                         </div>
                         <div style="height:100%;width:15%;float:right;">
-                            <Button type="warning" style="padding:3px 13px;margin-top:14px;">删除</Button>
+                            <Button type="warning" style="padding:3px 13px;margin-top:14px;" @click="deletHall(everyshow.hallID,everyshow.playDate)">删除</Button>
                         </div>
                         <div style="height:100%;width:15%;float:right;margin-right:20px;">
                             <p style="font-size:1.5em;color:rgb(6,193,174);margin-top:15px;">￥{{ everyshow.ticketPrice }}</p>
@@ -112,125 +112,17 @@ export default {
         },
         changetop(index){
             this.num = index
-            // let arr1 = [
-            //     {
-            //         startTime:'17:45',
-            //         overTime:'19:53',
-            //         tingtype:'英语3D',
-            //         whereting:'7号厅',
-            //         money:'￥36'
-            //     },
-            //     {
-            //         startTime:'20:10',
-            //         overTime:'22:18',
-            //         tingtype:'英语3D',
-            //         whereting:'7号厅',
-            //         money:'￥39'
-            //     }
-            // ]
-            // let arr2 = [
-            //     {
-            //         startTime:'17:45',
-            //         overTime:'19:53',
-            //         tingtype:'中文3D',
-            //         whereting:'8号厅',
-            //         money:'￥36'
-            //     },
-            //     {
-            //         startTime:'20:10',
-            //         overTime:'22:18',
-            //         tingtype:'中文3D',
-            //         whereting:'8号厅',
-            //         money:'￥39'
-            //     }
-            // ]
-            // let arr3 = [
-            //     {
-            //         startTime:'17:45',
-            //         overTime:'19:53',
-            //         tingtype:'中文3D',
-            //         whereting:'8号厅',
-            //         money:'￥36'
-            //     },
-            //     {
-            //         startTime:'20:10',
-            //         overTime:'22:18',
-            //         tingtype:'中文3D',
-            //         whereting:'8号厅',
-            //         money:'￥39'
-            //     },
-            //     {
-            //         startTime:'20:10',
-            //         overTime:'22:18',
-            //         tingtype:'中文3D',
-            //         whereting:'8号厅',
-            //         money:'￥39'
-            //     },
-            //     {
-            //         startTime:'17:45',
-            //         overTime:'19:53',
-            //         tingtype:'中文3D',
-            //         whereting:'8号厅',
-            //         money:'￥36'
-            //     },
-            //     {
-            //         startTime:'20:10',
-            //         overTime:'22:18',
-            //         tingtype:'中文3D',
-            //         whereting:'8号厅',
-            //         money:'￥39'
-            //     },
-            //     {
-            //         startTime:'20:10',
-            //         overTime:'22:18',
-            //         tingtype:'中文3D',
-            //         whereting:'8号厅',
-            //         money:'￥39'
-            //     },
-            //     {
-            //         startTime:'17:45',
-            //         overTime:'19:53',
-            //         tingtype:'中文3D',
-            //         whereting:'8号厅',
-            //         money:'￥36'
-            //     },
-            //     {
-            //         startTime:'20:10',
-            //         overTime:'22:18',
-            //         tingtype:'中文3D',
-            //         whereting:'8号厅',
-            //         money:'￥39'
-            //     },
-            //     {
-            //         startTime:'20:10',
-            //         overTime:'22:18',
-            //         tingtype:'中文3D',
-            //         whereting:'8号厅',
-            //         money:'￥39'
-            //     }
-            // ]
-            // if(index == 0)
-            //     this.introduce.show = arr1
-            // else if(index == 1)
-            //     this.introduce.show = arr2
-            // else   this.introduce.show = arr3
-            // console.log(this.introduce.show)
             axios.post('http://192.168.43.133:8080/TTMS/getMoviePlanByDate',{
                     name:this.addPlanInfo.addPlan,
-                    showDate:arry[this.index].time
-                }).then((res1)=>{
-                    this.introduce.show = res1.data
-                    for(let i = 0;i < res1.data.length;i ++){
-                        let date1 = new Date(res1.data[i].endDate);
-                        let hour = date1.getHours();
-                        hour = hour < 10 ? ('0' + hour) : hour
-                        let minute = date1.getMinutes();
-                        minute = minute < 10 ? ('0' +minute) : minute
-                        this.introduce.show[i].endDate = hour + ':' + minute
-                        this.introduce.show[i].playDate = this.introduce.show[i].playDate.slice(11,16)
-                    }
-                    console.log(this.introduce.show)
-                })
+                    showDate:this.introduce.sessions[index].time
+            }).then((res1)=>{
+                this.introduce.show = res1.data
+                for(let i = 0;i < res1.data.length;i ++){
+                    this.introduce.show[i].endDate = res1.data[i].endDate.slice(11,16)
+                    this.introduce.show[i].playDate = res1.data[i].playDate.slice(11,16)
+                }
+                console.log(this.introduce.show)
+            })
         },
         getInfo(){
             // this.introduce.sessions = [
@@ -264,33 +156,12 @@ export default {
                 }).then((res1)=>{
                     this.introduce.show = res1.data
                     for(let i = 0;i < res1.data.length;i ++){
-                        let date1 = new Date(res1.data[i].endDate);
-                        let hour = date1.getHours();
-                        hour = hour < 10 ? ('0' + hour) : hour
-                        let minute = date1.getMinutes();
-                        minute = minute < 10 ? ('0' +minute) : minute
-                        this.introduce.show[i].endDate = hour + ':' + minute
-                        this.introduce.show[i].playDate = this.introduce.show[i].playDate.slice(11,16)
+                        this.introduce.show[i].endDate = res1.data[i].endDate.slice(11,16)
+                        this.introduce.show[i].playDate = res1.data[i].playDate.slice(11,16)
                     }
                     console.log(this.introduce.show)
                 })
             })
-            // this.introduce.show = [
-            //     {
-            //         startTime:'17:45',
-            //         overTime:'19:53',
-            //         tingtype:'英语3D',
-            //         whereting:'7号厅',
-            //         money:'￥36'
-            //     },
-            //     {
-            //         startTime:'20:10',
-            //         overTime:'22:18',
-            //         tingtype:'英语3D',
-            //         whereting:'7号厅',
-            //         money:'￥39'
-            //     }
-            // ]
         },
         submit(){
             let data = {
@@ -300,7 +171,25 @@ export default {
                 ticketPrice:this.addPlanInfo.money
             }
             axios.post('http://192.168.43.133:8080/TTMS/addPlan',data).then((res)=>{
-                console.log(res)
+                if(res.status == 200){
+                    const msg = this.$Message.loading({
+                        content: '添加成功..',
+                        duration: 1,
+                    })
+                    location.reload()
+                }
+            })
+        },
+        deletHall(hallID,playDate){
+            axios.post('http://192.168.43.133:8080/TTMS/delPlan',{
+                id: hallID,
+                showDate: this.introduce.sessions[this.num].time + ' ' + playDate + ':00'
+            }).then((res)=>{
+                const msg = this.$Message.loading({
+                    content: '删除成功..',
+                    duration: 1,
+                })
+                location.reload()
             })
         }
     },

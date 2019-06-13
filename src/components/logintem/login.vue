@@ -141,9 +141,14 @@ export default {
         axios.post('http://192.168.43.133:8080/TTMS/login',data).then((res)=>{
           if(res.data.status == 200){
             localStorage.setItem('username',data.username);
-            console.log(localStorage.getItem('username'))
-            this.$router.push({path:'/'})
-            location.reload()
+            if(res.data.type == 0){
+              this.$router.push({path:'/'})
+              location.reload()
+            }
+            else if(res.data.type == 1){
+              this.$router.push({path:'/manage'})
+              location.reload()
+            }
           }else{
             this.$Message.error('用户名或密码错误！')
           }

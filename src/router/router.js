@@ -9,7 +9,9 @@ import changeMovie from '@/components/manage/changeMovie/changeMovie'
 import onlineMovie from '@/components/manage/onlineMovie/onlineMovie'
 import deletMovies from '@/components/manage/deletMovies/deletMovies'
 import selltickets from '@/components/manage/selltickets/selltickets'
+import addmoney from '@/components/manage/addmoney/addmoney'
 import addting from '@/components/manage/addting/addting'
+import getticket from '@/components/manage/getticket/getticket'
 import ticketsFind from '@/components/manage/ticketsFind/ticketsFind'
 import user from '@/user'
 import mainchoise from '@/components/usercomponents/userMain/userMainchoise'
@@ -91,6 +93,20 @@ export default[
                 component:addting,
                 meta:{
                     name:'1-0-8'
+                }
+            },
+            {
+                path:'/manage/addmoney',
+                component:addmoney,
+                meta:{
+                    name:'1-0-9'
+                }
+            },
+            {
+                path:'/manage/getticket',
+                component:getticket,
+                meta:{
+                    name:'1-0-10'
                 }
             },
         ]

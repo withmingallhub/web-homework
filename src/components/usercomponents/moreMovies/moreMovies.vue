@@ -5,7 +5,7 @@
         </div>
         <div class="MhotPreMain">
                 <div class="MeveryHotPre" v-for="(movie,index) in moreMovies" :key="index">
-                    <img class="MmovieClickImg" @click="getMovieDetail(movie.name)" :src="movie.url" alt="" height="80%" width="80%">
+                    <img class="MmovieClickImg" @click="getMovieDetail(movie.name)" :src="movie.url" alt="" height="220px" width="160px">
                     <p class="MmovieClickName" @click="getMovieDetail(movie.name)">{{ movie.name }}</p>
                 </div>
         </div>
@@ -27,8 +27,6 @@ export default {
         getItems(){
             this.moreMovies = JSON.parse(localStorage.getItem('moreMovies'));
             this.moreMoviesName = localStorage.getItem('moreMoviesName')
-            console.log(this.moreMovies)
-            console.log(this.moreMoviesName)
         },
         getMovieDetail(name) {
             localStorage.setItem('name',name)
@@ -50,13 +48,15 @@ export default {
     width:100%;
 }
 .MeveryHotPre{
-    height: 50%;
+    height: 290px;
     width:200px;
     float: left;
 }
 .MmovieClickName{
     font-size:1.2em;
-    margin-top:10px;
+    margin-top:7px;
+    padding-bottom: 10px;
+    border-bottom:1px solid rgb(200,200,200);
 }
 .MmovieClickName:hover{
     cursor: pointer;

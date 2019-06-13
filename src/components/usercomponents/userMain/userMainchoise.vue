@@ -129,6 +129,14 @@ li{
     cursor: pointer;
     border-left:3px solid rgba(6,193,174,0.5);
 }
+.aaa{
+    color:orange;
+    position: relative;
+    bottom:50px;
+}
+.aaa:hover{
+    cursor: pointer;
+}
 </style>
 <template>
     <div>
@@ -236,20 +244,16 @@ li{
             <!-- 高分电影榜 -->
             <div class="heighGrade">
                 <ul style="width:300px;">
-                    <li class="rankingName" style="text-align:center;">高分榜</li>
-                    <li class="rankingMovie" v-for="(one,index) in heighGrade" :key="index"  @click="getMovieDetail(one.name)">{{ one.name }}</li>
+                    <li class="rankingName" style="text-align:center;">高分榜</li><p class="aaa" @click="hightmore" style="float:right;font-size:0.7em;">查看更多</p>
+                    <li class="rankingMovie" v-for="(one,index) in heighGrade.slice(0,5)" :key="index"  @click="getMovieDetail(one.name)">{{ one.name }}</li>
                 </ul>
             </div>
             <!-- 新上线电影榜 -->
             <div class="newMovie">
                 <ul style="width:300px;">
-                    <li class="rankingName" style="text-align:center;">新上线</li>
-                    <li class="rankingMovie" v-for="(one,index) in newMovie" :key="index"  @click="getMovieDetail(one.name)">{{ one.name }}</li>
+                    <li class="rankingName" style="text-align:center;">新上线</li><p class="aaa" @click="newmore" style="float:right;font-size:0.7em;">查看更多</p>
+                    <li class="rankingMovie" v-for="(one,index) in newMovie.slice(0,5)" :key="index"  @click="getMovieDetail(one.name)">{{ one.name }}</li>
                 </ul>
-            </div>
-            <!-- 额外的div -->
-            <div style="width:300px;height:100%;border:1px solid black;float:left;;">
-
             </div>
         </div>
     </div>
@@ -266,67 +270,41 @@ export default {
             // 存储轮播图电影信息的对象数组
             swip:[
                 {
-                    url:'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3895436776,1493313546&fm=58&s=C115C730589647FF5E89F0C5030070A1',
-                    name:'流浪地球'
+                    url:'',
+                    name:''
                 },
                 {
-                    url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3527165871,1016449403&fm=58&s=787B20C402B38BC456651C8D0300E088',
-                    name:'复仇者联盟4'
+                    url:'',
+                    name:''
                 },
                 {
-                    url:'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3895436776,1493313546&fm=58&s=C115C730589647FF5E89F0C5030070A1',
-                    name:'流浪地球'
+                    url:'',
+                    name:''
                 },
                 {
-                    url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=385795278,2261803346&fm=58&s=CBA5870A4C9401EBF92A454F030070FA',
-                    name:'调音师'
+                    url:'',
+                    name:''
                 },
                 {
-                    url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3774822990,1063619265&fm=58&s=590208D646628EF044051C3403005019',
-                    name:'老师.好'
+                    url:'',
+                    name:''
                 },
                 {
-                    url:'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1792542740,2813351586&fm=58&s=9AB0008A5427E2FB50380DC00300D0A1',
-                    name:'何以为家'
+                    url:'',
+                    name:''
                 },
                 {
-                    url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=385795278,2261803346&fm=58&s=CBA5870A4C9401EBF92A454F030070FA',
-                    name:'调音师'
+                    url:'',
+                    name:''
                 },
             ],
             // 高分榜
             heighGrade:[
-                {
-                    url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3527165871,1016449403&fm=58&s=787B20C402B38BC456651C8D0300E088',
-                    name:'复仇者联盟4复仇者联盟4复仇者联盟4'
-                },
-                {
-                    url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=385795278,2261803346&fm=58&s=CBA5870A4C9401EBF92A454F030070FA',
-                    name:'调音师'
-                },
-                {
-                    url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3527165871,1016449403&fm=58&s=787B20C402B38BC456651C8D0300E088',
-                    name:'复仇者联盟4'
-                },
-                {
-                    url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=385795278,2261803346&fm=58&s=CBA5870A4C9401EBF92A454F030070FA',
-                    name:'调音师'
-                },
-                {
-                    url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=385795278,2261803346&fm=58&s=CBA5870A4C9401EBF92A454F030070FA',
-                    name:'调音师'
-                },
+                
             ],
             // 新上线
             newMovie:[
-                // {
-                //     url:'https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3895436776,1493313546&fm=58&s=C115C730589647FF5E89F0C5030070A1',
-                //     name:'流浪地球'
-                // },
-                // {
-                //     url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3527165871,1016449403&fm=58&s=787B20C402B38BC456651C8D0300E088',
-                //     name:'复仇者联盟4'
-                // },
+                
             ],
             // 热播榜 
             // chang 用循环渲染顶部切换按钮
@@ -338,61 +316,9 @@ export default {
                 type:0,
                 sendMovie:[],
                 hotMovie:[
-                    {
-                        url:'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1792542740,2813351586&fm=58&s=9AB0008A5427E2FB50380DC00300D0A1',
-                        name:'何以为家'
-                    },
-                     {
-                        url:'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1792542740,2813351586&fm=58&s=9AB0008A5427E2FB50380DC00300D0A1',
-                        name:'何以为家'
-                    },
-                     {
-                        url:'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1792542740,2813351586&fm=58&s=9AB0008A5427E2FB50380DC00300D0A1',
-                        name:'何以为家'
-                    },
-                     {
-                        url:'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1792542740,2813351586&fm=58&s=9AB0008A5427E2FB50380DC00300D0A1',
-                        name:'何以为家'
-                    },
-                     {
-                        url:'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1792542740,2813351586&fm=58&s=9AB0008A5427E2FB50380DC00300D0A1',
-                        name:'何以为家'
-                    },
-                     {
-                        url:'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1792542740,2813351586&fm=58&s=9AB0008A5427E2FB50380DC00300D0A1',
-                        name:'何以为家'
-                    },
-                     {
-                        url:'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1792542740,2813351586&fm=58&s=9AB0008A5427E2FB50380DC00300D0A1',
-                        name:'何以为家'
-                    },
-                     {
-                        url:'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1792542740,2813351586&fm=58&s=9AB0008A5427E2FB50380DC00300D0A1',
-                        name:'何以为家'
-                    },
-                     {
-                        url:'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1792542740,2813351586&fm=58&s=9AB0008A5427E2FB50380DC00300D0A1',
-                        name:'何以为家'
-                    },
-                     {
-                        url:'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1792542740,2813351586&fm=58&s=9AB0008A5427E2FB50380DC00300D0A1',
-                        name:'何以为家'
-                    },
-                     {
-                        url:'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1792542740,2813351586&fm=58&s=9AB0008A5427E2FB50380DC00300D0A1',
-                        name:'何以为家'
-                    },
+                    
                 ],
                 preMovie:[
-                    {
-                        url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=385795278,2261803346&fm=58&s=CBA5870A4C9401EBF92A454F030070FA',
-                        name:'调音师'
-                    },
-                     {
-                         
-                        url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=385795278,2261803346&fm=58&s=CBA5870A4C9401EBF92A454F030070FA',
-                        name:'调音师'
-                    },
                     
                 ]
             },
@@ -401,7 +327,10 @@ export default {
         }
     },
     mounted:function(){
-        this.getmovies()
+        this.getnewmovies()
+        this.getpremovies()
+        this.gethighmovies()
+        this.gethotmovies()
         this.hotPreChange.sendMovie = this.hotPreChange.hotMovie
         // 钩子函数执行轮播图的js代码
         var swiper = new Swiper('.swiper-container', {
@@ -457,10 +386,45 @@ export default {
             }
             this.$router.push({path:'/moreMovies'})
         },
-        getmovies(){
+        getnewmovies(){
             axios.get('http://192.168.43.133:8080/TTMS/getNewMovie').then((res)=>{
-                console.log(res)
+                this.newMovie = res.data
+                for(let i = 0;i < res.data.length;i ++){
+                    this.newMovie[i].name = res.data[i].moviename
+                    this.newMovie[i].url = res.data[i].photo
+                }
             })
+        }, 
+        getpremovies(){
+            axios.get('http://192.168.43.133:8080/TTMS/getMovieList/Future').then((res)=>{
+                this.hotPreChange.preMovie = res.data
+            })
+        },
+        gethighmovies(){
+            axios.get('http://192.168.43.133:8080/TTMS/getMovieList/High').then((res)=>{
+                this.heighGrade = res.data
+                let arry = []
+                for(let i = 0;i < 7;i ++){
+                    arry[i] = res.data[i]
+                }
+                this.swip = arry
+            })
+        },
+        gethotmovies(){
+            axios.get('http://192.168.43.133:8080/TTMS/getMovieList/Hot').then((res)=>{
+                this.hotPreChange.hotMovie = res.data
+                this.hotPreChange.sendMovie = res.data
+            })
+        },
+        hightmore(){
+            localStorage.setItem('moreMoviesName','高分榜')
+            localStorage.setItem('moreMovies',JSON.stringify(this.heighGrade));
+            this.$router.push({path:'/moreMovies'})
+        },
+        newmore(){
+            localStorage.setItem('moreMoviesName','新上线')
+            localStorage.setItem('moreMovies',JSON.stringify(this.newMovie));
+            this.$router.push({path:'/moreMovies'})
         }
     }
 }

@@ -15,14 +15,15 @@
                     <p class="movieIfo">电影类型：{{ introduce.type }}</p>
                     <p class="movieIfo">电影时长：{{ introduce.timelong }}</p>
                     <p class="movieIfo"> 剧情介绍：{{ introduce.introduct }}</p>
+                    <Button type="error" @click="colect">收藏</Button>
                 </div>
                 <div style="width:200px;height:289px;float:left;text-align:left;margin-left:80px;padding-top:30px;">
                     <p style="margin-bottom:30px;">上映时间：{{ introduce.timewatch }}</p>
                     <p>其他推荐：</p>
-                    <a class="another" href="">查看热播电影</a>
-                    <a class="another" href="">查看高分电影榜</a>
-                    <a class="another" href="">查看最新电影</a>
-                    <a class="another" href="">查看即将上线电影</a>
+                    <a class="another" @click="hotmovie">查看热播电影</a>
+                    <a class="another" @click="highmovie">查看高分电影榜</a>
+                    <a class="another" @click="newmovie">查看最新电影</a>
+                    <a class="another" @click="premovie">查看即将上线电影</a>
                 </div>
             </div>
         </div>
@@ -46,7 +47,7 @@
                         <Button type="warning" style="padding:3px 13px;margin-top:14px;" @click="choisetheChar(everyshow)">购票</Button>
                     </div>
                     <div style="height:100%;width:15%;float:right;margin-right:20px;">
-                        <p style="font-size:1.5em;color:rgb(6,193,174);margin-top:15px;">{{ everyshow.money }}</p>
+                        <p style="font-size:1.5em;color:rgb(6,193,174);margin-top:15px;">￥{{ everyshow.money }}</p>
                     </div>
                 </li>
             </ul>
@@ -71,10 +72,10 @@
                 <div style="width:100%;margin-top:50px;">
                     <!-- 使用二重循环二维数组，渲染座位信息 -->
                     <ul v-for="(row,index1) in char" :key="index1" style="overflow:hidden;width:80%;margin-top:20px;text-align:center;">
-                        <li v-for="(col,index2) in row" :key="index2" style="height:40px;width:40px;float:left;margin-right:20px;list-style:none;">
-                            <Icon type="md-bulb" style="height:40px;width:40px;color:red;float:left;font-size:3em;" v-if="col == 1" @click="$Message.error('这个座位被别人选了哦！')"/>
-                            <Icon class="canChoise" type="ios-bulb-outline" style="height:40px;width:40px;float:left;font-size:3em;" v-if="col == 0" @click="clickChar(index1,index2,col)"/>
-                            <Icon class="canChoise" type="ios-bulb" style="height:40px;width:40px;float:left;font-size:3em;color:green;" v-if="col == 2" @click="clickChar(index1,index2,col)"/>
+                        <li v-for="(col,index2) in row" :key="index2" style="height:20px;width:20px;float:left;margin-right:20px;list-style:none;">
+                            <Icon type="md-bulb" style="height:20px;width:20px;color:red;float:left;font-size:2.8em;" v-if="col == 1" @click="$Message.error('这个座位被别人选了哦！')"/>
+                            <Icon class="canChoise" type="ios-bulb-outline" style="height:20px;width:20px;float:left;font-size:2.8em;" v-if="col == 0" @click="clickChar(index1,index2,col)"/>
+                            <Icon class="canChoise" type="ios-bulb" style="height:20px;width:20px;float:left;font-size:2.8em;color:green;" v-if="col == 2" @click="clickChar(index1,index2,col)"/>
                         </li>
                     </ul>
                 </div>
@@ -117,24 +118,16 @@ export default {
                         tingId:7,
                         money:'￥36'
                     },
-                    {
-                        startTime:'20:10',
-                        overTime:'22:18',
-                        tingtype:'英语3D',
-                        whereting:'7号厅',
-                        tingId:7,
-                        money:'￥39'
-                    }
                 ],
                 // 在localstorage中的电影的详细信息
-                grade:`8.9`,
-                timewatch:'2019-05-20',
-                director:'安东尼·罗素、乔·罗素',
-                act:'小罗伯特·唐尼、克里斯·埃文斯、克里斯·海姆斯沃斯、马克·鲁法洛、斯嘉丽·约翰逊、杰瑞米·雷纳、保罗·路德、布丽·拉尔森、唐·钱德尔、凯伦·吉兰、乔什·布洛林等主演。',
-                type:'动作、科幻',
-                timelong:'181分钟',
-                url:'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3527165871,1016449403&fm=58&s=787B20C402B38BC456651C8D0300E088',
-                introduct:'《复仇者联盟4：终局之战》（Avengers: Endgame）是安东尼·罗素和乔·罗素执导的美国科幻电影，改编自美国漫威漫画，漫威电影宇宙（Marvel Cinematic Universe，缩写为MCU）第22部影片，由小罗伯特·唐尼、克里斯·埃文斯、克里斯·海姆斯沃斯、马克·鲁法洛、斯嘉丽·约翰逊、杰瑞米·雷纳、保罗·路德、布丽·拉尔森、唐·钱德尔、凯伦·吉兰、乔什·布洛林等主演。',
+                grade:``,
+                timewatch:'',
+                director:'',
+                act:'',
+                type:'',
+                timelong:'',
+                url:'',
+                introduct:'',
             },
             num:0,
             // 购票组件是否显示
@@ -159,142 +152,117 @@ export default {
     },
     mounted:function (){
         this.findIfo()
+        this.getDate()
         this.$router.afterEach((to, from, next) => {
             window.scrollTo(0, 0)
         })
     },
     methods:{
+        getDate(){
+            axios.post('http://192.168.43.133:8080/TTMS/getDateByName',{
+                moviename:this.name
+            }).then((res)=>{
+                for(let i = 0;i < res.data.length;i ++){ 
+                    let date = new Date(res.data[i]);
+                    let y = date.getFullYear();
+                    let m = date.getMonth() + 1;
+                    m = m < 10 ? ('0' + m) : m;
+                    let d = date.getDate();
+                    d = d < 10 ? ('0' + d) : d;
+                    res.data[i] = y + '-' + m + '-' + d
+                }
+                let arry = []
+                for(let i = 0;i < res.data.length;i ++){
+                    arry.push({
+                        time:res.data[i]
+                    })
+                }   
+                this.introduce.sessions = arry
+                axios.post('http://192.168.43.133:8080/TTMS/getMoviePlanByDate',{
+                    name:this.name,
+                    showDate:arry[0].time
+                }).then((res1)=>{
+                    this.introduce.show = []
+                    for(let i = 0;i < res1.data.length;i ++){
+                        this.introduce.show.push({
+                            overTime : res1.data[i].endDate.slice(11,16),
+                            startTime : res1.data[i].playDate.slice(11,16),
+                            tingtype : res1.data[i].hallType,
+                            whereting : res1.data[i].hallName,
+                            money : res1.data[i].ticketPrice,
+                            tingId : res1.data[i].hallID,
+                        })
+                    }
+                })
+            })
+        },
         findIfo(){ //从localstorage中获取电影的name名称
             let name = localStorage.getItem('name');
+            // 这里向我的足迹中添加电影名称
             this.name = name
+            axios.post('http://192.168.43.133:8080/TTMS/getMovieByName',{
+                moviename:name
+            }).then((res)=>{
+                this.introduce.url = res.data.photo
+                this.introduce.type = res.data.type
+                this.introduce.timelong = res.data.duration
+                this.introduce.director = res.data.author
+                this.introduce.act = res.data.production
+                this.introduce.introduct = res.data.introduction
+                this.introduce.grade = res.data.score
+                var date = new Date(res.data.releaseDate);
+                var y = date.getFullYear();
+                var m = date.getMonth() + 1;
+                m = m < 10 ? ('0' + m) : m;
+                var d = date.getDate();
+                d = d < 10 ? ('0' + d) : d;
+                this.introduce.timewatch = y + '-' + m + '-' + d
+            })
         },
         changetop(index){
             this.bytickets = false
             this.num = index
-            let arr1 = [
-                {
-                    startTime:'17:45',
-                    overTime:'19:53',
-                    tingtype:'英语3D',
-                    whereting:'7号厅',
-                    tingId:7,
-                    money:'￥36'
-                },
-                {
-                    startTime:'20:10',
-                    overTime:'22:18',
-                    tingtype:'英语3D',
-                    whereting:'7号厅',
-                    tingId:7,
-                    money:'￥39'
+            axios.post('http://192.168.43.133:8080/TTMS/getMoviePlanByDate',{
+                name:this.name,
+                showDate:this.introduce.sessions[this.num].time
+            }).then((res1)=>{
+                this.introduce.show = []
+                for(let i = 0;i < res1.data.length;i ++){
+                    this.introduce.show.push({
+                        overTime : res1.data[i].endDate.slice(11,16),
+                        startTime : res1.data[i].playDate.slice(11,16),
+                        tingtype : res1.data[i].hallType,
+                        whereting : res1.data[i].hallName,
+                        money : res1.data[i].ticketPrice,
+                        tingId : res1.data[i].hallID,
+                    })
                 }
-            ]
-            let arr2 = [
-                {
-                    startTime:'17:45',
-                    overTime:'19:53',
-                    tingtype:'中文3D',
-                    whereting:'8号厅',
-                    tingId:8,
-                    money:'￥36'
-                },
-                {
-                    startTime:'20:10',
-                    overTime:'22:18',
-                    tingtype:'中文3D',
-                    whereting:'8号厅',
-                    tingId:8,
-                    money:'￥39'
-                }
-            ]
-            let arr3 = [
-                {
-                    startTime:'17:45',
-                    overTime:'19:53',
-                    tingtype:'中文3D',
-                    whereting:'8号厅',
-                    tingId:8,
-                    money:'￥36'
-                },
-                {
-                    startTime:'20:10',
-                    overTime:'22:18',
-                    tingtype:'中文3D',
-                    whereting:'8号厅',
-                    tingId:8,
-                    money:'￥39'
-                },
-                {
-                    startTime:'20:10',
-                    overTime:'22:18',
-                    tingtype:'中文3D',
-                    whereting:'8号厅',
-                    tingId:8,
-                    money:'￥39'
-                },
-                {
-                    startTime:'17:45',
-                    overTime:'19:53',
-                    tingtype:'中文3D',
-                    whereting:'8号厅',
-                    tingId:8,
-                    money:'￥36'
-                },
-                {
-                    startTime:'20:10',
-                    overTime:'22:18',
-                    tingtype:'中文3D',
-                    whereting:'8号厅',
-                    tingId:8,
-                    money:'￥39'
-                },
-                {
-                    startTime:'20:10',
-                    overTime:'22:18',
-                    tingtype:'中文3D',
-                    whereting:'8号厅',
-                    tingId:8,
-                    money:'￥39'
-                },
-                {
-                    startTime:'17:45',
-                    overTime:'19:53',
-                    tingtype:'中文3D',
-                    whereting:'8号厅',
-                    tingId:8,
-                    money:'￥36'
-                },
-                {
-                    startTime:'20:10',
-                    overTime:'22:18',
-                    tingtype:'中文3D',
-                    whereting:'8号厅',
-                    tingId:8,
-                    money:'￥39'
-                },
-                {
-                    startTime:'20:10',
-                    overTime:'22:18',
-                    tingtype:'中文3D',
-                    whereting:'8号厅',
-                    tingId:8,
-                    money:'￥39'
-                }
-            ]
-            if(index == 0)
-                this.introduce.show = arr1
-            else if(index == 1)
-                this.introduce.show = arr2
-            else   this.introduce.show = arr3
-            console.log(this.introduce.show)
+            })
+
+
+
+
+
         },
         choisetheChar(show){
             let username = localStorage.getItem('username')
             if(!username) this.$router.push({path:'/login'})
-            this.choiseChar = show
-            this.choiseChar.moviename = this.name
-            this.choiseChar.time = this.introduce.sessions[this.num].time
-            this.bytickets = true
+            axios.post('http://192.168.43.133:8080/TTMS/getSeatStatusArray',{
+                hallname:show.whereting,
+                showDate:this.introduce.sessions[this.num].time + ' ' + show.startTime + ':00',
+                hallID:show.tingId
+            }).then((res)=>{
+                this.char = res.data
+                this.choiseChar = show
+                this.choiseChar.moviename = this.name
+                this.choiseChar.time = this.introduce.sessions[this.num].time
+                this.bytickets = true
+                window.scroll({
+                    top: 1000, 
+                    left: 0, 
+                    behavior: 'smooth' 
+                    });
+            })
         },
         clickChar(index1,index2,col){
             if(col == 0){
@@ -320,19 +288,64 @@ export default {
                 }
             }
         },
+        // 提交订单
         shopping(){
+            let arry = []
             for(let i = 0;i < this.sendChar.length;i ++){
-                this.sendChar[i].time = this.introduce.sessions[this.num].time + ' ' + this.choiseChar.startTime + ':00'
-                this.sendChar[i].tingId = this.choiseChar.tingId
-                this.sendChar[i].username = localStorage.getItem('username')
+                arry.push({
+                    useDate: this.introduce.sessions[this.num].time + ' ' + this.choiseChar.startTime + ':00',
+                    seatID: this.choiseChar.tingId,
+                    seatRow:this.sendChar[i].row + 1,
+                    seatColumn:this.sendChar[i].col + 1
+                })
+                
             }
-
-            console.log(this.sendChar)
-            // axios.post('',this.sendChar).then((res)=>{
-                // if(res.status == 200){
-                    // this.$router.push({path:'/shopcar'})
-                // }
-            // })
+            let username = 'http://192.168.43.133:8080/TTMS/buyTicket/' + localStorage.getItem('username')
+            console.log(username)
+            axios.post(username,arry).then((res)=>{
+                if(res.status == 200) {
+                    this.$Message.success('购买成功')
+                    location.reload()
+                }
+            })
+        },
+        // 收藏电影
+        colect(){
+            let name = localStorage.getItem('name')
+            axios.post('',{
+                moviename:name
+            }).then((res)=>{
+                if(res.status == 200)
+                this.$Message.success('收藏成功！')
+            })
+        },
+        hotmovie(){
+            axios.get('http://192.168.43.133:8080/TTMS/getMovieList/Hot').then((res)=>{
+                localStorage.setItem('moreMoviesName','热播榜')
+                localStorage.setItem('moreMovies',JSON.stringify(res.data));
+                this.$router.push({path:'/moreMovies'})
+            })
+        },
+        premovie(){
+            axios.get('http://192.168.43.133:8080/TTMS/getMovieList/Future').then((res)=>{
+                localStorage.setItem('moreMoviesName','即将上线')
+                localStorage.setItem('moreMovies',JSON.stringify(res.data));
+                this.$router.push({path:'/moreMovies'})
+            })
+        },
+        highmovie(){
+            axios.get('http://192.168.43.133:8080/TTMS/getMovieList/High').then((res)=>{
+                localStorage.setItem('moreMoviesName','高分榜')
+                localStorage.setItem('moreMovies',JSON.stringify(res.data));
+                this.$router.push({path:'/moreMovies'})
+            })
+        },
+        newmovie(){
+            axios.get('http://192.168.43.133:8080/TTMS/getNewMovie').then((res)=>{
+                localStorage.setItem('moreMoviesName','新上线')
+                localStorage.setItem('moreMovies',JSON.stringify(res.data));
+                this.$router.push({path:'/moreMovies'})
+            })
         }
     }
 }

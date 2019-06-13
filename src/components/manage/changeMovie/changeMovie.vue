@@ -2,7 +2,7 @@
     <div style="margin-left:50px;overflow:hidden;width:90%;">
         <h2>修改电影信息</h2>
         <div class="unmovies" v-for="(movie,index) in movies" :key="index">
-            <h3 style="text-align:center;background:rgb(87,197,247);">{{ movie.movieName }}</h3>
+            <h3 style="text-align:center;background:rgb(87,197,247);white-space:nowrap;overflow:hidden;text-overflow: ellipsis;">{{ movie.movieName }}</h3>
             <div style="width:100%;height:250px;background:rgb(177,177,177)">
                 <h3 v-if="!movie.movieUrl" style="text-align:center;">未添加电影封面</h3>
                 <img v-if="movie.movieUrl" :src="movie.movieUrl" alt="" width="100%" height="100%">
@@ -122,6 +122,7 @@ export default {
                     content: '正在保存..',
                     duration: 1,
                 })
+                location.reload()
           }, 
         })    
       },

@@ -5,8 +5,8 @@
                 <Menu mode="horizontal" theme="dark" active-name="1" style="background:rgb(92,173,255)">
                     
                     <div>
-                        <div style="height:60px;width:60px;border-radius:50%;background:green;float:right;">
-                            
+                        <div style="height:60px;width:60px;border-radius:50%;float:right;">
+                            <img src="@/assets/my.jpg" alt="" width="100%" height="100%" style="border-radius:50%;">
                         </div>
                         <div style="height:60px;float:right;margin-right:30px;position:relative;bottom:10px;color:white;">
                             <div style="height:50%;text-align:right;">
@@ -26,7 +26,11 @@
             <Layout>
                 <Sider hide-trigger :style="{background: '#fff'}">
                     <Menu active-name="1" theme="light">
-                        <MenuGroup title="电影管理">
+                        <Submenu name="1">
+                            <template slot="title">
+                                <Icon type="ios-analytics" />
+                                电影管理 
+                            </template>
                             <MenuItem name="0" to="/manage/addting">
                                 <Icon type="md-add" />
                                 添加演出厅
@@ -51,17 +55,29 @@
                                 <Icon type="md-close" />
                                 删除电影
                             </MenuItem>
-                        </MenuGroup>
-                        <MenuGroup title="影票管理">
+                        </Submenu>
+                        <Submenu name="2">
+                            <template slot="title">
+                                <Icon type="ios-analytics" />
+                                影票管理 
+                            </template>
                             <MenuItem name="6" to="/manage/ticketsFind">
-                                <Icon type="md-search" />
-                                影票搜索
+                                <Icon type="ios-paper-outline" />
+                                创建管理账号
                             </MenuItem>
                             <MenuItem name="7" to="/manage/selltickets">
                                 <Icon type="ios-paper-outline" />
                                 售票信息
                             </MenuItem>
-                        </MenuGroup>
+                            <MenuItem name="8" to="/manage/addmoney">
+                                <Icon type="ios-paper-outline" />
+                                充值入口
+                            </MenuItem>
+                            <MenuItem name="9" to="/manage/getticket">
+                                <Icon type="ios-paper-outline" />
+                                取票入口
+                            </MenuItem>
+                        </Submenu>
                     </Menu>
                 </Sider>
                 <Layout :style="{padding: '0 24px 24px'}">
